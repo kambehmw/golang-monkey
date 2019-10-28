@@ -1,8 +1,8 @@
 package lexer
 
 import (
-	"testing"
 	"github.com/kambehmw/golang-monkey/token"
+	"testing"
 )
 
 func TestNextToken(t *testing.T) {
@@ -28,7 +28,7 @@ func TestNextToken(t *testing.T) {
 	`
 
 	tests := []struct {
-		expectedType 	token.TokenType
+		expectedType    token.TokenType
 		expectedLiteral string
 	}{
 		{token.LET, "let"},
@@ -113,13 +113,13 @@ func TestNextToken(t *testing.T) {
 		tok := l.NextToken()
 
 		if tok.Type != tt.expectedType {
-			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q", 
-					 i, tt.expectedType, tok.Type)
+			t.Fatalf("tests[%d] - tokentype wrong. expected=%q, got=%q",
+				i, tt.expectedType, tok.Type)
 		}
 
 		if tok.Literal != tt.expectedLiteral {
-			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q", 
-					 i, tt.expectedLiteral, tok.Literal)
+			t.Fatalf("tests[%d] - literal wrong. expected=%q, got=%q",
+				i, tt.expectedLiteral, tok.Literal)
 		}
 	}
 }

@@ -15,7 +15,7 @@ func New(input string) *Lexer {
 	return l
 }
 
-func (l * Lexer) readChar() {
+func (l *Lexer) readChar() {
 	if l.readPosition >= len(l.input) {
 		l.ch = 0
 	} else {
@@ -25,7 +25,7 @@ func (l * Lexer) readChar() {
 	l.readPosition++
 }
 
-func (l * Lexer) NextToken() token.Token {
+func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
 	l.skipWhitespace()
@@ -84,7 +84,7 @@ func (l * Lexer) NextToken() token.Token {
 		} else if isDigit(l.ch) {
 			tok.Type = token.INT
 			tok.Literal = l.readNumber()
-			return tok	
+			return tok
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}

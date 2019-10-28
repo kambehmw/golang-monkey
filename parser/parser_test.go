@@ -2,16 +2,16 @@ package parser
 
 import (
 	"fmt"
-	"testing"
 	"github.com/kambehmw/golang-monkey/ast"
 	"github.com/kambehmw/golang-monkey/lexer"
+	"testing"
 )
 
 func TestLetStatements(t *testing.T) {
 	tests := []struct {
-		input string
+		input              string
 		expectedIdentifier string
-		expectedValue interface{}
+		expectedValue      interface{}
 	}{
 		{"let x = 5;", "x", 5},
 		{"let y = true;", "y", true},
@@ -67,7 +67,7 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 
 func TestReturnStatements(t *testing.T) {
 	tests := []struct {
-		input string
+		input         string
 		expectedValue interface{}
 	}{
 		{"return 5;", 5},
@@ -199,9 +199,9 @@ func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
 
 func TestParsingPrefixExpressions(t *testing.T) {
 	prefixTests := []struct {
-		input string
+		input    string
 		operator string
-		value interface{}
+		value    interface{}
 	}{
 		{"!5;", "!", 5},
 		{"-15;", "-", 15},
@@ -238,10 +238,10 @@ func TestParsingPrefixExpressions(t *testing.T) {
 }
 
 func TestParsingInfixExpression(t *testing.T) {
-	infixTests := []struct{
-		input string
-		leftValue interface{}
-		operator string
+	infixTests := []struct {
+		input      string
+		leftValue  interface{}
+		operator   string
 		rightValue interface{}
 	}{
 		{"5 + 5;", 5, "+", 5},
@@ -272,8 +272,8 @@ func TestParsingInfixExpression(t *testing.T) {
 			t.Fatalf("program.Statements[0] is not ast.ExpressionStatement. got=%T", program.Statements[0])
 		}
 
-		if !testInfixExpression(t, stmt.Expression, tt.leftValue, 
-				tt.operator, tt.rightValue) {
+		if !testInfixExpression(t, stmt.Expression, tt.leftValue,
+			tt.operator, tt.rightValue) {
 			return
 		}
 	}
@@ -281,7 +281,7 @@ func TestParsingInfixExpression(t *testing.T) {
 
 func TestOperatorPrecedenceParsing(t *testing.T) {
 	tests := []struct {
-		input string
+		input    string
 		expected string
 	}{
 		{
@@ -393,7 +393,7 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 
 func TestBooleanExpression(t *testing.T) {
 	tests := []struct {
-		input string
+		input           string
 		expectedBoolean bool
 	}{
 		{"true;", true},
@@ -425,7 +425,7 @@ func TestBooleanExpression(t *testing.T) {
 	}
 }
 
-func testLiteralExpression(t *testing.T, exp ast.Expression, expected interface{},) bool {
+func testLiteralExpression(t *testing.T, exp ast.Expression, expected interface{}) bool {
 	switch v := expected.(type) {
 	case int:
 		return testIntegerLiteral(t, exp, int64(v))
@@ -441,7 +441,7 @@ func testLiteralExpression(t *testing.T, exp ast.Expression, expected interface{
 }
 
 func testInfixExpression(t *testing.T, exp ast.Expression, left interface{},
-	 operator string, right interface{}) bool {
+	operator string, right interface{}) bool {
 	opExp, ok := exp.(*ast.InfixExpression)
 	if !ok {
 		t.Errorf("exp is not ast.InfixExpression. got=%T(%s)", exp, exp)
@@ -609,20 +609,20 @@ func TestFunctionLiteralParsing(t *testing.T) {
 		t.Fatalf("stmt.Expression is not ast.FunctionLiteral. got=%T", stmt.Expression)
 	}
 
-	if len(function.Parameters) != 2{
+	if len(function.Parameters) != 2 {
 		t.Fatalf("function literal parameters wrong. want 2, got=%d\n", len(function.Parameters))
 	}
 
 	testLiteralExpression(t, function.Parameters[0], "x")
 	testLiteralExpression(t, function.Parameters[1], "y")
 
-	if len(function.Body.Statements) != 1 { 
+	if len(function.Body.Statements) != 1 {
 		t.Fatalf("function.Body.Statements has not 1 statements. got=%d\n", len(function.Body.Statements))
 	}
 
 	bodyStmt, ok := function.Body.Statements[0].(*ast.ExpressionStatement)
 	if !ok {
-		t.Fatalf("function body stmt is not ast.ExpressionStatement. got=%T", function.Body.Statements[0])	
+		t.Fatalf("function body stmt is not ast.ExpressionStatement. got=%T", function.Body.Statements[0])
 	}
 
 	testInfixExpression(t, bodyStmt.Expression, "x", "+", "y")
@@ -630,7 +630,7 @@ func TestFunctionLiteralParsing(t *testing.T) {
 
 func TestFunctionParameterParsing(t *testing.T) {
 	tests := []struct {
-		input string
+		input          string
 		expectedParams []string
 	}{
 		{input: "fn() {};", expectedParams: []string{}},

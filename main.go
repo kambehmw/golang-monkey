@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/kambehmw/golang-monkey/repl"
 	"os"
 	"os/user"
-	"github.com/kambehmw/golang-monkey/repl"
 )
 
 func main() {
